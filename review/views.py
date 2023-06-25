@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.utils import timezone
 
@@ -21,7 +21,8 @@ def review_list(request):
 
 # review 상세페이지
 def review_detail(request, review_id):
-    review = Review.objects.get(id=review_id)
+    #review = Review.objects.get(id=review_id)
+    review = get_object_or_404(Review, pk=review_id)
     context = {'review': review}
     return render(request, 'review/review_detail.html', context)
 
@@ -31,30 +32,34 @@ def review_create(request):
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)    #가저장
+            review.author = request.user
             review.create_date = timezone.now()
             review.save()   #실제 저장
             return redirect('review:review_list') #index 경로로 이동
     else:   #request.method == "GET"
         form = ReviewForm()
-    context = {'form':form} # context 변수에 딕셔너리 자료 저장
+    context = {'form': form} # context 변수에 딕셔너리 자료 저장
     return render(request, 'review/review_form.html', context)
 
 # review 댓글 달기
 def answer_create(request, review_id):
-    review = Review.objects.get(id=review_id)
+    # review = Review.objects.get(id=review_id)
+    review = get_object_or_404(Review, pk=review_id)
     if request.method == "POST":
         form = AnswerForm(request.POST) #폼에 입력된 데이터 전달받음
         if form.is_valid():
             answer = form.save(commit=False)    #가저장
+            answer.author = request.user
             answer.review = review              #외래키 저장
             answer.create_date = timezone.now()
             answer.save()   #실제 저장
+            form.save()
             return redirect('review:review_detail', review_id=review_id)
             #해당 id 경로로 이동
-        else:
-            form = AnswerForm()
-        context = {'review':review, 'form':form}
-        return redirect(request, 'review/review_detail.html', context)
+    else:
+        form = AnswerForm()
+    context = {'review': review, 'form': form}
+    return render(request, 'review/review_detail.html', context)
 
 
 

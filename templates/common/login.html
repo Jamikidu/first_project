@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}그린투어 - 로그인 페이지
+{% endblock %}
+{% block content %}
+{% include 'header.html' %}
+    <div class="container my-3">
+        <section id="login">
+            <div class="col-4">
+                <h4>로 그 인</h4>
+            </div>
+            <div class="col-8 text-end">
+                <span>
+                    또는 <a href="{% url 'common:signup' %}">계정</a>을 만드세요
+                </span>
+            </div>
+        <form action="{% url 'common:login' %}" method="post" class="my-3">
+            {% csrf_token %}
+            {% include 'form_errors.html' %}
+            <div class="form-group">
+                <label for="username">사용자 ID</label>
+                <input type="text" class="form-control" id="username" name="username"
+                       value="{{ form.username.value|default_if_none:'' }}">
+                <!-- name 속성값은 반드시 username으로 함 -->
+            </div>
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" class="form-control" id="password" name="password"
+                       value="{{ form.password.value|default_if_none:'' }}">
+                <!-- name은 반드시 password으로 함 -->
+            </div>
+            <button type="submit" class="btn btn-primary">로그인</button>
+        </form>
+        </section>
+    </div>
+
+{% endblock %}

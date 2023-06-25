@@ -1,30 +1,50 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Q & A 상세보기</title>
-</head>
-<body>
-    <h1>{{ review.subject }}</h1>
-    <div>
-        {{ review.content }}
-    </div>
-        <h5>{{ review.answer_set.count }}개의 답변이 있습니다.</h5>
-    <div>
-        <ul>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <section id="detail">
+        <h2 class="border-bottom py-2">{{ review.subject }}</h2>
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="card-text" style="white-space: pre-line;">
+                    {{ review.content }}
+                </div>
+                <div class="d-flex justify-content-end">
+                    <div class="badge badge-light p-2">
+                        {{ review.create_date }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h5 class="border-bottom my-3 py-2">
+            {{ review.answer_set.count }}개의 답변이 있습니다.
+        </h5>
+        <div>
             {% for answer in review.answer_set.all %}
-                <li>{{ answer.content }}</li>
+            <div class="card my-3">
+                <div class="card-body">
+                    <div class="card-text" style="white-space: pre-line">
+                        {{ answer.content }}
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <div class="badge bg-info text-start">
+                            <div>{{ answer.create_date }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {% endfor %}
-        </ul>
-    </div>
-<form action="{% url 'review:answer_create' review.id %}" method="post">
-    {% csrf_token %}
-    <div>
-        <textarea name="content" id="content" rows="10" cols="40">
-
-        </textarea>
-    </div>
-    <input type="submit" value="답변 등록">
-</form>
-</body>
-</html>
+        </div>
+        <!-- 답변 등록 폼 -->
+        <form action="{% url 'review:answer_create' review.id %}" method="post" class="my-3">
+            {% csrf_token %}
+            <!-- 유효성 검사 -->
+            {% include 'form_errors.html' %}
+            <div class="form-group">
+                <textarea name="content" rows="7" cols="40" class="form-control mb-3">
+                </textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">답변 등록</button>
+        </form>
+    </section>
+</div>
+{% endblock %}

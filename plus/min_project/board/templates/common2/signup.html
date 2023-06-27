@@ -18,7 +18,7 @@
                 </span>
             </div>
         </div>
-        <form action="{% url 'common2:signin' %}" method="post" class="my-3">
+        <form action="{% url 'common2:signup' %}" method="post" class="my-3">
             {% csrf_token %}
             {% include 'form_errors.html' %}
 

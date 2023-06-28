@@ -7,6 +7,10 @@ class Question(models.Model):
     subject = models.CharField(max_length=200)
     content = models.TextField()
     create_date = models.DateTimeField()
+    # 5장 - DB에서 칼럼에 null 값을 허용한다는 의미, blank=True는 작성 폼에서 form.is_valid() 검사시 값이 없어도 된다는 의미
+    modify_date = models.DateTimeField(null=True, blank=True)
+    photo = models.ImageField(upload_to='blog/images/%Y/%m/%d/',
+                              null=True, blank=True)
 
     def __str__(self):
         return self.subject
@@ -18,6 +22,9 @@ class Answer(models.Model):
     # subject = models.CharField(max_length=200)
     content = models.TextField()
     create_date = models.DateTimeField()
+    # 5장
+    modify_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return self.content
+

@@ -16,7 +16,7 @@ header{
     top: 0; left: 0; right: 0;
     background: #ffffff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    padding: 0 7%;
+    padding: 0 15% 0 13%;
     position: relative;
     display:flex;
     align-items: center;
@@ -31,7 +31,7 @@ header{
 
 /* 로고설정 */
 header .logo{
-    width:23%;
+    width:17%;
     font-weight: bolder;
     font-size: 34px;
     color: #333;
@@ -51,8 +51,8 @@ header .navbar ul li{
 
 /* 앵커요소 설정 글씨 설정 */
 header .navbar ul li a{
-    font-size: 15px;
-    padding: 20px;
+    font-size: 17px;
+    padding: 10px 15px;
     color: #333;
     display: block;
 }
@@ -120,7 +120,7 @@ header label{
    데스크탑 디바이스 (가로해상도가 992px 보다 작은 화면에 적용)
    모바일 320
    태블릿 768 */
-@media(max-width:1100px){
+@media(max-width:1250px){
     header{
         padding: 20px;
     }
@@ -171,7 +171,7 @@ header label{
         size: 100%;
     }
     .logo #logo_pic{width:80px; margin-top:90px;}
-    .logo h1 .abc{width:100%; font-size:31px; position:relative; bottom:100px; left:90px;
+    .logo h1 .abc{width:100%; font-size:24px; position:relative; bottom:100px; left:90px;
         color: rgba(50, 180, 0); font-family: 'Single Day', cursive;}
-    .logo h1 .cba{width:100%; font-size:31px; position:relative; bottom:100px; left:90px; font-family: 'Single Day', cursive;}
+    .logo h1 .cba{width:100%; font-size:24px; position:relative; bottom:100px; left:90px; font-family: 'Single Day', cursive;}
 }

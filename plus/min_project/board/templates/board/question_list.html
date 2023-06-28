@@ -12,7 +12,7 @@
         <table class="board_main_table">
             <!-- thead -->
             <thead class="board_table_thd">
-                <tr>
+                <tr class="tr1">
                     <th>NO</th>
                     <th>제목</th>
                     <th>글쓴이</th>
@@ -23,7 +23,7 @@
             <tbody>
             {% if question_list %}
                 {% for question in question_list %}
-                <tr>
+                <tr class="tr2">
                     <!--<td>{{ forloop.counter }}</td>-->  <!-- 1번 부터 시작 -->
                     <!-- 템플릿 태그 -->
                     <!-- 1페이지 13~4, 2페이지 3~1 (최신글이 1페이지로)

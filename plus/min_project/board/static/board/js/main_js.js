@@ -34,6 +34,6 @@ function changePicture(){
         imgIdx = 0;
     }
 
-    setTimeout(changePicture, 3000); //콜백함수
+    setTimeout(changePicture, 4000); //콜백함수
 }
 }   // 사진 변경 함수 끝

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load board_filter %}
+{% block content %}
+{% include 'header.html' %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static 'tour/css/boardstyle.css' %}">
+<div class="container">
+
+
+    <h1>REVIEW</h1>
+    <p>그린 투어와 함께한 후기를 남겨주세요</p>
+    <section id="board_main">
+        <table class="board_main_table">
+            <!-- thead -->
+            <thead class="board_table_thd">
+                <tr>
+                    <th>No</th>
+                    <th>제목</th>
+                    <th>글쓴이</th>
+                    <th>작성일시</th>
+                </tr>
+            </thead>
+            <!-- tbody -->
+            <tbody>
+            {% if question_list %}
+                {% for question in question_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <!-- 제목 -->
+                    <td>
+                        <a href="{% url 'tour:detail' question.id %}">
+                            {{ question.subject }}
+                        </a>
+                    </td>
+                    <!-- 글쓴이 -->
+                    <td>{{ question.author }}</td>
+                    <!-- 작성 일시 -->
+                    <td>{{ question.create_date }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <p>질문이 없습니다.</p>
+            {% endif %}
+            </tbody>
+        </table>
+        <!-- 페이지 처리 영역 -->
+        <ul class="pagination">
+            <!-- 이전 페이지 -->
+            {% if question_list.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ question_list.previous_page_number }}">&laquo;</a>
+                </li>
+            {% else %}
+                <li class="page-item-disabled">
+                    <a class="page-link" href="">&laquo;</a>
+                </li>
+            {% endif %}
+
+            <!-- 현재 페이지-->
+            {% for page_number in question_list.paginator.page_range %}
+                {% if page_number == question_list.number %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            <!-- 다음 페이지 -->
+            {% if question_list.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ question_list.next_page_number }}">&raquo;</a>
+                </li>
+            {% else %}
+                <li class="page-item-disabled">
+                    <a class="page-link" href="">&raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+        <a href="{% url 'tour:question_create' %}"
+           class="board_main_q_btn">질문 등록</a>
+    </section>
+</div>
+{% endblock %}

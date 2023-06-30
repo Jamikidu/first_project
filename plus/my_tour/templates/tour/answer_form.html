@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'header.html' %}
+<link rel="stylesheet" href="{% static 'tour/css/board_answer.css' %}">
+<div class="correction_container">
+  <form method="post" class="correction_form_box_all">
+    {% csrf_token %}
+    {% include 'form_errors.html' %}
+    <div class="correction_label_textarea_box">
+      <!--=========== 수정 내용 ===========-->
+      <label for="content" class="correction_label">수정 내용</label>
+
+      <!--=========== textarea ===========-->
+      <div class="correction_textarea_box">
+        <textarea class="correction_this_textarea" id="content" name="content"
+                  rows="30" >{{ form.content.value|default_if_none:''}}</textarea>
+      </div>
+    </div>
+    <!--=========== 저장 button ===========-->
+    <button type="submit" class="correction_save_button">저장하기</button>
+  </form>
+</div>
+{% endblock %}
